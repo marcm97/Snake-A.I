@@ -1,0 +1,94 @@
+April 10th:
+	* Downloaded startup code
+	* Created new repo
+	* Commited startup code
+	* Average:
+	* BFS Implementation
+		- Avg: 33.29
+		- Max: 64
+		- count: 100
+		- Issue: When it gets big, partitions screen, can't find path & exits
+		- Possible Solns:
+			#Random Move
+			#Longest possible path+ BFS
+				Average: 53.06
+				Maximum: 93
+				Count: 100
+			#Try to avoid this situation - keep snake body along outer playfield?
+			#maybe instead of longest possible path maybe somehow try to find a path 
+			that causes the graph to be a fully connected graph again?
+April 14th:
+    *Maybe choose a  random point on the graph and find shortest path to random  point through the food?
+
+April 17th:
+    *tried to look ahead after food obtained by creating 2 graphs,
+    couldn't get it to work - seg faulted
+    * reverted back to old code for checkpoint1
+    
+
+
+April 20th:
+    * added base djikstra
+    * need to optimize
+    * need to streamline bfs, djikstra to use same graph implementation
+    
+April 21:
+    * implemented dijkstra with check, need to do some edge case error checking, off by one error checking
+
+Things to do:
+    - try A *
+    - clean up and streamline code
+    - modify dijkstra so it shows different optimal paths (to ensure it doesnt go into an infinite loop)
+    - use an ensemble of the models?
+    - play around withw weights on djikstra
+April 22:
+	*Current Algo:
+		- Create a weighted graph (lower weights on the outside; right now increase is by powers of 3)
+		- Run djikstra's (repeat 3 - hoping it finds a slightly different path -random weight added to weight)
+			- if it finds a path
+				- look forward and see if path to cells adj to tail are open
+					if true, follow dijkstra path
+				- if false, move in direction of tail and hope something opens up
+
+			-if it doesnt find a path, move in direction of tail and hope something opens up, keep a counter
+
+		- if counter exceeds a threshold, return None
+
+	*Questions
+		- Is saving states a scanner?
+		- is there a time limit?
+		- dealing with const grid as an argument?
+	*Ideas
+		- make djikstra's slightly more random ( we dont really care about the most optimum path)
+		- improve speed of djikstra's - maybe use A*?
+		- get a better exit condition, instead of returning none get that last food if possible
+			- if pathexits after getting food take it?
+		- modularize code
+     - after a certain threhold value, create a dfs, bfs, djikstra path and choose one based on which of the three maximize a certain heuristic
+     - every new food is randomly put on position which is not occupied, try and make sure that the new food isnt in a tough to get spot
+    
+
+
+April 28th:
+    * tried playing around with the hyperparameters - very unsucessful
+    * decided to methodically go bout it and keep track of changes and corresponding scores in an excel sheet
+    * was very time consuming - decided instead to revert back to olde change as it was performing better
+    
+April 29th:
+    * started afresh with reverted code
+    * created longer paths when dist bw tail and head is less than 2 - forward checked to see if there was still a path to the food
+    * better results - was able to deal with cases when in an otherwise infinite loop
+    * observation - better to have larger chunks of open area then single far away blocks 
+    * issue: really hight runs (>215) followed by very bad runs (<100) - not sure what edge case is being missed?
+
+
+May 2nd:
+	* added some documentation for playe.cpp
+	* some seeds for which it dies at 1 - not sure why
+		2138393661
+		-784203814
+	* the algorithm weirdly feels analagous to life
+		- you have a goal, you think of all the ways you can achieve it, you think about the scenarios after achieving and if there is nothing hindering you, you take it, else you play it safe untill you get your oppurtunity.
+
+
+

@@ -1,0 +1,69 @@
+-- Marc,
+
+   This is looking good.  One thing I'm noticing is that when the board starts
+   to get full the food can end up between two tail sections and your head is
+   following the tail so closely there's no opportunity to pick up the food and
+   you end up timing out on that run.  The scores are still really good but
+   I don't know if you've seen this.  You might be able to deal with it by
+   slowly trying to increase the follow distance for the tail.  In some cases,
+   this will open up the opportunity to pick up the food.  I've added a short
+   video of an example of this issue.
+
+Performance:
+20/20   Averages at least 20 on a 17 x 15 grid with no obstacles
+20/20   Averages at least 20 on a 17 x 15 grid with obstacles
+15/15   Averages at least 30 on a 17 x 15 grid with no obstacles
+15/15   Averages at least 30 on a 17 x 15 grid with obstacles
+10/10   Averages at least 40 on a 17 x 15 grid with no obstacles
+10/10   Averages at least 40 on a 17 x 15 grid with obstacles
+ 5/5    Averages at least 60 on a 17 x 15 grid with no obstacles
+ 5/5    Averages at least 60 on a 17 x 15 grid with obstacles
+-----
+100/100
+
+Bonus!!
+10/10   Averages 100+ on a 17 x 15 grid with no obstacles
+10/10   Averages 100+ on a 17 x 15 grid with obstacles
+ 0/10   Secret Bonus not revealed beforehand
+
+Penalties (this is the penalty scale):
+  -1    Per crash or hang on 17 x 15 grid with no obstacles (100 runs)
+  -1    Per crash or hang on 17 x 15 grid with obstacles (100 runs)
+  -5    Binary files in repository
+  -10%  For each fraction of 0.01 second over 0.01 seconds per move (Opp Lab)
+  -5    Spams trace / log / debugging information to the console during run
+  -5    Code is not modular
+  -5    Code is hard to read
+  -5    Code has errors or warnings when compiled
+-----
+
+
+Log:
+10/10   Log shows progression of design and effort is consistent
+10/10   Log matches commit history and development efforts
+10/10   Log describes algorithm observed in code
+-----
+30/30
+-------------------------------------------------------------------------------
+Total:  150/130  (with bonus can score as high as 150/130)
+
+Code Review and comments:
+
+   - Really good job, Marc!
+
+   - Your snake seems to go to the food more aggressively as the field fills
+     up than before.  It also does a good job of getting out of problems with
+     obstacles by modifying follow distance / path to open up trapped food.
+
+   - Not sure why the need for the static variables in Player::makeMove.  The
+     game only creates one Player object and it persists for the whole game.
+     All instance variables maintain their values.
+
+   - There are some magic numbers in the code that aren't defined.  For example,
+     555 in makeMove?  Is that a configurable parameter?  What does that
+     threshold do?
+
+   - Player::makeMove is too big and does too much.  Some of that functionality
+     should be refactored into other methods for readability.
+
+   - Overall a good job.
